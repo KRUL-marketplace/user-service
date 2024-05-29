@@ -1,0 +1,322 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Krul API",
+    "version": "1.0.0"
+  },
+  "tags": [
+    {
+      "name": "UserService"
+    }
+  ],
+  "host": "localhost:8081",
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/v1/user/by-id/{id}": {
+      "get": {
+        "summary": "Получить пользователя по ID",
+        "operationId": "UserService_GetById",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/userGetByIdResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "description": "ID пользователя",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "UserService"
+        ]
+      },
+      "delete": {
+        "summary": "Удалить пользователя по ID",
+        "operationId": "UserService_DeleteById",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/userDeleteByIdResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "description": "Идентификатор пользователя",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "UserService"
+        ]
+      }
+    },
+    "/v1/user/create": {
+      "post": {
+        "summary": "Создание нового пользователя",
+        "operationId": "UserService_Create",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/userCreateUserInfoResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/userCreateUserInfoRequest"
+            }
+          }
+        ],
+        "tags": [
+          "UserService"
+        ]
+      }
+    },
+    "/v1/user/update/{id}": {
+      "put": {
+        "summary": "Обноваление данных пользователя",
+        "operationId": "UserService_Update",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/userUpdateResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "description": "Идентификтаор пользователя",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "info": {
+                  "$ref": "#/definitions/userUserInfo",
+                  "title": "Информация о пользователе"
+                }
+              },
+              "title": "Запрос на обновление пользователя"
+            }
+          }
+        ],
+        "tags": [
+          "UserService"
+        ]
+      }
+    },
+    "/v1/user/users": {
+      "get": {
+        "summary": "Получить всех пользователей",
+        "operationId": "UserService_GetAll",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/userGetAllResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "tags": [
+          "UserService"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "protobufAny": {
+      "type": "object",
+      "properties": {
+        "@type": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": {}
+    },
+    "rpcStatus": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "details": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/protobufAny"
+          }
+        }
+      }
+    },
+    "userCreateUserInfoRequest": {
+      "type": "object",
+      "properties": {
+        "info": {
+          "$ref": "#/definitions/userUserInfo",
+          "title": "Информация о пользователе"
+        }
+      },
+      "title": "Информация для создания нового пользователя"
+    },
+    "userCreateUserInfoResponse": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "title": "Идентификатор созданного пользователя"
+        }
+      },
+      "title": "Ответ на запрос создания нового пользователя"
+    },
+    "userDeleteByIdResponse": {
+      "type": "object",
+      "properties": {
+        "message": {
+          "type": "string",
+          "title": "Сообщение об успешном удалении пользователя"
+        }
+      },
+      "title": "Ответ на удаление пользователя"
+    },
+    "userGetAllResponse": {
+      "type": "object",
+      "properties": {
+        "users": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/userUser"
+          },
+          "title": "Все пользователи"
+        }
+      },
+      "title": "Ответ на запрос получения списка всех пользователей"
+    },
+    "userGetByIdResponse": {
+      "type": "object",
+      "properties": {
+        "user": {
+          "$ref": "#/definitions/userUser",
+          "title": "Информация о пользователе"
+        }
+      },
+      "title": "Ответ на запрос пользователя по ID"
+    },
+    "userUpdateResponse": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "title": "Идентификатор пользователя"
+        }
+      },
+      "title": "Ответ на обновление пользователя"
+    },
+    "userUser": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "title": "Идентификатор пользователя"
+        },
+        "info": {
+          "$ref": "#/definitions/userUserInfo",
+          "title": "Информация о пользователе"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "title": "Время создания пользователя"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "title": "Время последнего обновления пользователя"
+        }
+      },
+      "title": "Пользователь"
+    },
+    "userUserInfo": {
+      "type": "object",
+      "properties": {
+        "phoneNumber": {
+          "type": "string",
+          "title": "Номер телефона"
+        },
+        "name": {
+          "type": "string",
+          "title": "Имя пользователя"
+        }
+      },
+      "title": "Информация о пользователе"
+    }
+  }
+}
