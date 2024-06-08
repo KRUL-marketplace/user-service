@@ -2,7 +2,7 @@ package service
 
 import (
 	"context"
-	"user-service/client/db"
+	"github.com/KRUL-marketplace/common-libs/pkg/client/db"
 	"user-service/internal/repository"
 	"user-service/internal/repository/model"
 )

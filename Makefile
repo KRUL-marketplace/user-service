@@ -29,6 +29,7 @@ get-deps:
 	go get -u github.com/google/uuid
 	go get -u github.com/rakyll/statik
 	go get -u github.com/dgrijalva/jwt-go
+	go get -u github.com/KRUL-marketplace/product-catalog-service
 
 generate-user-service-api:
 	mkdir -p pkg

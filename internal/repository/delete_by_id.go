@@ -2,9 +2,9 @@ package repository
 
 import (
 	"context"
+	"github.com/KRUL-marketplace/common-libs/pkg/client/db"
 	sq "github.com/Masterminds/squirrel"
 	"github.com/pkg/errors"
-	"user-service/client/db"
 )
 
 func (r *repo) DeleteById(ctx context.Context, id string) error {
