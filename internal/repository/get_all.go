@@ -2,8 +2,8 @@ package repository
 
 import (
 	"context"
+	"github.com/KRUL-marketplace/common-libs/pkg/client/db"
 	sq "github.com/Masterminds/squirrel"
-	"user-service/client/db"
 	"user-service/internal/converter"
 	"user-service/internal/repository/model"
 )
